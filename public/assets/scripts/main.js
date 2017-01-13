@@ -106,12 +106,6 @@
                 }
             });
         });
-
-        document.querySelector('#add-to-homescreen').addEventListener('click', function(e)  {
-            welcome.classList.remove('-active');
-            toroTimeline.classList.add('-active');
-            footer.classList.add('-active');
-        }.bind(this));
     }
 
     /***
