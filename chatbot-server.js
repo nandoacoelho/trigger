@@ -1,78 +1,34 @@
 (function () {
     'use strict';
 
-    var http        = require('http'),
-        apiai       = require('apiai'),
-        express     = require('express'),
-        bodyParser  = require('body-parser'),
-        restService = express(),
-        apikey      = '942773d0214b4a5489ced85cbaf4d2a8',
-        app         = apiai(apikey),
-        actions = {
-            FUNCIONARIO_PROJETO: 'funcionarioProjeto',
-            PROJETO_INDUSTRIA: 'projetoIndustria',
-            PROJETO_AREA: 'projetoArea'
-        };
+    var express = require('express')
+    var bodyParser = require('body-parser')
+    var request = require('request')
+    var app = express()
 
-    init();
+    app.set('port', (process.env.PORT || 5000))
 
-    /***
-     * init
-     */
-    function init() {
-        createServer();
-    }
+    // Process application/x-www-form-urlencoded
+    app.use(bodyParser.urlencoded({extended: false}))
 
-    /***
-     * createServer
-     */
-    function createServer() {
-        restService.use(bodyParser.json());
+    // Process application/json
+    app.use(bodyParser.json())
 
-        restService.post('/hook', function (request, response) {
-            console.log('hook request');
-            try {
-                var speech = '',
-                    requestBody = request.body;
+    // Index route
+    app.get('/', function (req, res) {
+        res.send('Hello world, I am a chat bot')
+    })
 
-                switch (true) {
-                    case (requestBody.result.action === actions.FUNCIONARIO_PROJETO):
-                        console.log(requestBody.result.action);
-                        speech = requestBody.result.action;
-                        break;
+    // for Facebook verification
+    app.get('/webhook/', function (req, res) {
+        if (req.query['hub.verify_token'] === 'my_voice_is_my_password_verify_me') {
+            res.send(req.query['hub.challenge'])
+        }
+        res.send('Error, wrong token')
+    })
 
-                    case (requestBody.result.action === actions.PROJETO_AREA):
-                        console.log(requestBody.result.action);
-                        speech = requestBody.result.action;
-                        break;
-
-                    case (requestBody.result.action === actions.PROJETO_INDUSTRIA):
-                        console.log(requestBody.result.action);
-                        speech = requestBody.result.action;
-                        break;
-                }
-
-                return response.json({
-                    speech: speech,
-                    displayText: speech,
-                    source: 'huge-voice'
-                });
-            }
-
-            catch (err) {
-                console.error("Can't process request", err);
-
-                return response.status(400).json({
-                    status: {
-                        code: 400,
-                        errorType: err.message
-                    }
-                });
-            }
-        });
-
-        restService.listen(8000, function () {
-            console.log("Server listening");
-        });
-    }
+    // Spin up the server
+    app.listen(app.get('port'), function() {
+        console.log('running on port', app.get('port'))
+    })
 })();
