@@ -3,13 +3,11 @@
 
     var http        = require('http'),
         apiai       = require('apiai'),
-        mysql       = require('mysql'),
         express     = require('express'),
         bodyParser  = require('body-parser'),
         restService = express(),
         apikey      = '942773d0214b4a5489ced85cbaf4d2a8',
         app         = apiai(apikey),
-        obj         = require('./output.json'),
         actions = {
             FUNCIONARIO_PROJETO: 'funcionarioProjeto',
             PROJETO_INDUSTRIA: 'projetoIndustria',
