@@ -27,54 +27,48 @@
      * connectToSocketIO
      */
     function connectToSocketIO() {
-        var ws = new WebSocket('ws://huge-trigger.herokuapp.com:7127', 'ws');
+        var ws = new WebSocket('ws://huge-trigger.herokuapp.com');
         var el = document.getElementById('server-time');
         ws.onmessage = function (event) {
-            el.innerHTML = 'Server time: ' + event.data;
+            console.log(event);
         };
-
-
-        let socket;
-            socket = io.connect('https://huge-trigger.herokuapp.com:49223', {
-                'path': '/socket.io'
-            });
 
         sendButton.addEventListener('click', function () {
             console.log('blau')
             if (textarea.innerText != '') {
-                socket.emit('message1', textarea.innerText);
+                ws.send('message1', textarea.innerText);
                 textarea.innerText = '';
             }
         });
 
-        socket.on('floatingNotification', function (resp) {
-            navigator.serviceWorker.register('./service-worker.js',{ scope: './' });
-            let listItemArray = document.querySelectorAll('.update'),
-                html = '<div class="update">' +
-                            '<div class="update-description">' +
-                                '<p class="date-time">' + resp.time + '</p>' +
-                                '<p class="title">' + resp.title +'</p>' +
-                                '<p class="description">' + resp.description +'</p>' +
-                            '</div>' +
-                        '<a href="#"><div class="update-action">' + resp.icon +'<span class="title">' + resp.actionTitle + '</span></a>' +
-                        '</div>' +
-                    '</div>';
-
-            listItemArray[listItemArray.length - 1].insertAdjacentHTML('beforebegin', html);
-
-            navigator.serviceWorker.ready.then(function(registration) {
-                registration.showNotification(resp.title, {
-                    body: resp.description,
-                    icon: './assets/images/icon192.png',
-                    vibrate: [200, 100, 200, 100, 200, 100, 200],
-                    tag: 'vibration-sample',
-                });
-            });
-        });
-
-        socket.on('mainCard', (resp) => {
-            navigator.serviceWorker.register('./service-worker.js',{ scope: './' });
-        });
+        // socket.on('floatingNotification', function (resp) {
+        //     navigator.serviceWorker.register('./service-worker.js',{ scope: './' });
+        //     let listItemArray = document.querySelectorAll('.update'),
+        //         html = '<div class="update">' +
+        //                     '<div class="update-description">' +
+        //                         '<p class="date-time">' + resp.time + '</p>' +
+        //                         '<p class="title">' + resp.title +'</p>' +
+        //                         '<p class="description">' + resp.description +'</p>' +
+        //                     '</div>' +
+        //                 '<a href="#"><div class="update-action">' + resp.icon +'<span class="title">' + resp.actionTitle + '</span></a>' +
+        //                 '</div>' +
+        //             '</div>';
+        //
+        //     listItemArray[listItemArray.length - 1].insertAdjacentHTML('beforebegin', html);
+        //
+        //     navigator.serviceWorker.ready.then(function(registration) {
+        //         registration.showNotification(resp.title, {
+        //             body: resp.description,
+        //             icon: './assets/images/icon192.png',
+        //             vibrate: [200, 100, 200, 100, 200, 100, 200],
+        //             tag: 'vibration-sample',
+        //         });
+        //     });
+        // });
+        //
+        // socket.on('mainCard', (resp) => {
+        //     navigator.serviceWorker.register('./service-worker.js',{ scope: './' });
+        // });
     }
 
     /***
