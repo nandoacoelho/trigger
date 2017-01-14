@@ -13,6 +13,8 @@
         var app = require('express')();
         var https        = require('http');
         var server = https.createServer(app);
+        const PORT = process.env.PORT || 3000;
+
         server.listen(PORT);
 
         var io = require('socket.io').listen(server);
