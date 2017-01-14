@@ -4,15 +4,16 @@
     let footer = document.querySelector('.footer'),
         welcome = document.querySelector('.welcome'),
         sendButton = document.querySelector('.voice-button'),
-        textarea = document.querySelector('.textarea');
+        textarea = document.querySelector('.textarea'),
+        name = document.querySelector('.name');
 
     init();
     /***
      * init
      */
     function init() {
-        addToHomeScreen();
         connectToSocketIO();
+        addToHomeScreen();
         subscribeServiceWorker();
 
         var howLaunched = window.location.search.substring(1).split('=')[0];
@@ -23,52 +24,77 @@
         }
     }
 
+    var os = require('os');
+
+    var interfaces = os.networkInterfaces();
+    var addresses = [];
+    for (var k in interfaces) {
+        for (var k2 in interfaces[k]) {
+            var address = interfaces[k][k2];
+            if (address.family === 'IPv4' && !address.internal) {
+                addresses.push(address.address);
+            }
+        }
+    }
+
+    console.log(addresses);
+
     /***
      * connectToSocketIO
      */
     function connectToSocketIO() {
-        var ws = new WebSocket('ws://huge-trigger.herokuapp.com');
-        var el = document.getElementById('server-time');
-        ws.onmessage = function (event) {
-            console.log(event);
-        };
+        let socket;
+            // https://huge-trigger.herokuapp.com:49223
+            socket = io.connect('http://localhost:5000');
 
-        sendButton.addEventListener('click', function () {
-            console.log('blau')
-            if (textarea.innerText != '') {
-                ws.send('message1', textarea.innerText);
+        sendButton.addEventListener('click', () => {
+            let listItemArray = document.querySelectorAll('.message'),
+                html = '<div class="message my-message roboto-light"><span>'+ textarea.innerText +'</span></div>';
+
+            listItemArray[listItemArray.length - 1].insertAdjacentHTML('afterend', html);
+            navigator.serviceWorker.register('./service-worker.js',{ scope: './' });
+
+            if (textarea.innerText != '' && name.innerText === 'Luisa') {
+                socket.emit('message1', textarea.innerText);
+                textarea.innerText = '';
+            } else if (textarea.innerText != '' && name.innerText === 'Aline Coelho') {
+                socket.emit('message1', textarea.innerText);
                 textarea.innerText = '';
             }
         });
 
-        // socket.on('floatingNotification', function (resp) {
-        //     navigator.serviceWorker.register('./service-worker.js',{ scope: './' });
-        //     let listItemArray = document.querySelectorAll('.update'),
-        //         html = '<div class="update">' +
-        //                     '<div class="update-description">' +
-        //                         '<p class="date-time">' + resp.time + '</p>' +
-        //                         '<p class="title">' + resp.title +'</p>' +
-        //                         '<p class="description">' + resp.description +'</p>' +
-        //                     '</div>' +
-        //                 '<a href="#"><div class="update-action">' + resp.icon +'<span class="title">' + resp.actionTitle + '</span></a>' +
-        //                 '</div>' +
-        //             '</div>';
-        //
-        //     listItemArray[listItemArray.length - 1].insertAdjacentHTML('beforebegin', html);
-        //
-        //     navigator.serviceWorker.ready.then(function(registration) {
-        //         registration.showNotification(resp.title, {
-        //             body: resp.description,
-        //             icon: './assets/images/icon192.png',
-        //             vibrate: [200, 100, 200, 100, 200, 100, 200],
-        //             tag: 'vibration-sample',
-        //         });
-        //     });
-        // });
-        //
-        // socket.on('mainCard', (resp) => {
-        //     navigator.serviceWorker.register('./service-worker.js',{ scope: './' });
-        // });
+        socket.on('floatingNotification', function (resp) {
+            navigator.serviceWorker.register('./service-worker.js',{ scope: './' });
+            let listItemArray = document.querySelectorAll('.messages'),
+                html = '<div class="their-message roboto-light"><span>'+ resp +'</span></div>';
+
+            listItemArray[listItemArray.length - 1].insertAdjacentHTML('beforebegin', html);
+
+            navigator.serviceWorker.ready.then(function(registration) {
+                registration.showNotification(resp.title, {
+                    body: resp.description,
+                    icon: './assets/images/icon192.png',
+                    vibrate: [200, 100, 200, 100, 200, 100, 200],
+                    tag: 'vibration-sample',
+                });
+            });
+        });
+
+        socket.on('message3', (resp) => {
+            let listItemArray = document.querySelectorAll('.message'),
+                html = '<div class="message their-message roboto-light"><span>'+ resp +'</span></div>';
+
+            listItemArray[listItemArray.length - 1].insertAdjacentHTML('afterend', html);
+            navigator.serviceWorker.register('./service-worker.js',{ scope: './' });
+        });
+
+        socket.on('message4', (resp) => {
+            let listItemArray = document.querySelectorAll('.message'),
+                html = '<div class="message my-message roboto-light"><span>'+ resp +'</span></div>';
+
+            listItemArray[listItemArray.length - 1].insertAdjacentHTML('afterend', html);
+            navigator.serviceWorker.register('./service-worker.js',{ scope: './' });
+        });
     }
 
     /***
