@@ -4,7 +4,7 @@
   height: 85%
   width: 100%
   margin-top: 200px
-  padding: 0 20px 20px
+  padding: 20px 0
   background: $light-grey
   overflow-y: scroll
   transition: .3s ease
@@ -15,3 +15,47 @@
   &.-active
     opacity: 1
     z-index: 10
+
+.profile-section
+  > .title
+    margin-bottom: 8px
+    margin-left: 20px
+    font-family: $roboto
+    font-weight: 700
+    font-size: 10px
+    text-transform: uppercase
+    color: $grey40
+    letter-spacing: 12px
+
+.tags
+  display: flex
+  flex-direction: row
+  overflow-x: scroll
+  height: auto
+  margin-bottom: 35px
+  padding-left: 20px
+
+  &::-webkit-scrollbar
+    display: none
+
+  > .tag,
+  > .add-tag
+    display: inline-block
+    padding: 8px 20px
+    margin: 2px
+    border-radius: 37.5px
+    font-family: $roboto
+    font-weight: 300
+    font-size: 12px
+    white-space: nowrap
+
+  > .tag
+    background-color: $ice-white
+    color: $grey
+
+  > .add-tag
+    padding: 7px 19px
+    background-color: $light-grey
+    border: 1px dashed $grey40
+    color: $grey40
+

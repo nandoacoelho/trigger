@@ -45,7 +45,40 @@
     background: $gradient2
 
     .microphone
-      width: 14px
+      position: absolute
+      width: 24px
+      margin-top: -12px
+      margin-left: -12px
+      opacity: 0
+      height: 0
+      transform: rotate(-90deg)
+      transition: opacity .3s, visibility .3s, transform .3s, height 0s ease .3s
+
+      &.-active
+        height: 24px
+        opacity: 1
+        visibility: visible
+        transform: rotate(0deg)
+        transition: opacity .3s, visibility .3s, transform .3s
+
+    .paper-plane
+      position: absolute
+      width: 22px
+      margin-top: -13px
+      margin-left: -13px
+      visibility: hidden
+      opacity: 0
+      height: 0
+      transform: rotate(90deg)
+      transition: opacity .3s, visibility .3s, transform .3s, height 0s ease .3s
+
+      &.-active
+        height: 24px
+        opacity: 1
+        visibility: visible
+        transform: rotate(0deg)
+        transition: opacity .3s, visibility .3s, transform .3s
+
 
 [contentEditable=true]:empty:not(:focus)::before
   content: attr(data-ph)
