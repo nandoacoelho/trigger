@@ -1,4 +1,53 @@
 .main
   height: 65%
   width: 100%
+  padding: 20px
   background: $light-grey
+
+  > .my-message
+    font-family: $roboto
+    text-align: left
+
+    &.-more-letters
+      span
+        border-radius: 9px 9px 9px 0
+
+    span
+      display: block
+      float: left
+      max-width: 70%
+      padding: 10px 20px
+      border-radius: 37px 37px 37px 0
+      background-color: $ice-white
+
+  > .their-message
+    font-family: $roboto
+    text-align: left
+
+    &.-more-letters
+      span
+        border-radius: 9px 9px 0 9px
+
+    span
+      display: block
+      float: right
+      max-width: 70%
+      padding: 10px 20px
+      border-radius: 37px 37px 0 37px
+      color: white
+      background: $gradient1
+
+  > .my-message,
+  > .their-message
+    height: auto
+    width: 100%
+    clear: both
+    font-size: 13px
+
+    span
+      margin-top: 10px
+
+  > .their-message + .their-message,
+  > .my-message + .my-message
+    span
+      margin: 2px 0

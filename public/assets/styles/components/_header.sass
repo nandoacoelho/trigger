@@ -8,6 +8,7 @@
   width: 100%
   position: relative
   overflow: hidden
+  transition: .3s ease-in
 
   &.-active
     height: 30%
@@ -15,6 +16,7 @@
   > .user-photo
     width: 100%
     position: absolute
+    left: 0
     z-index: 0
 
   > .overlay
@@ -22,6 +24,7 @@
     height: 100%
     width: 100%
     position: absolute
+    left: 0
     z-index: 1
     opacity: 0.6
 
@@ -33,3 +36,8 @@
       width: 12px
       margin-left: 6px
       vertical-align: middle
+      margin-top: 0
+      transition: .3s ease-in
+
+      &.-animate
+        margin-top: 10px
