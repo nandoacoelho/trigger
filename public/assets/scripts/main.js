@@ -27,6 +27,13 @@
      * connectToSocketIO
      */
     function connectToSocketIO() {
+        var ws = new WebSocket('https://huge-trigger.herokuapp.com:49223');
+        var el = document.getElementById('server-time');
+        ws.onmessage = function (event) {
+            el.innerHTML = 'Server time: ' + event.data;
+        };
+
+
         let socket;
             socket = io.connect('https://huge-trigger.herokuapp.com:49223', {
                 'path': '/socket.io'
