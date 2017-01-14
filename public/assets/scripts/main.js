@@ -29,13 +29,14 @@
     function connectToSocketIO() {
         let socket;
             socket = io.connect('https://huge-trigger.herokuapp.com:19713', {
-                'path': '/socket.io',
-                secure: true
+                'path': '/socket.io'
             });
 
         sendButton.addEventListener('click', function () {
-            if (textarea.value != '') {
-                socket.emit('message1', $('.textarea').val());
+            console.log('blau')
+            if (textarea.innerText != '') {
+                socket.emit('message1', textarea.innerText);
+                textarea.innerText = '';
             }
         });
 
