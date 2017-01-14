@@ -2,18 +2,8 @@
     'use strict';
     init();
 
-    let updates = document.querySelector('.updates'),
-        footer = document.querySelector('.main-footer'),
-        welcome = document.querySelector('.welcome'),
-        toroTimeline = document.querySelector('.toro-timeline'),
-
-        mainCard = document.querySelectorAll('.main-card'),
-        timeLeft = document.querySelector('.countdown .time'),
-        dateTime = document.querySelector('.card .date-time'),
-        intro = document.querySelector('.card .intro'),
-        paragraph = document.querySelector('.card .paragraph'),
-        buttonText = document.querySelector('.button-text'),
-        completed = document.querySelector('.welcome.-completed');
+    let footer = document.querySelector('.footer'),
+        welcome = document.querySelector('.welcome');
 
     /***
      * init
@@ -22,6 +12,7 @@
         addToHomeScreen();
         connectToSocketIO();
         subscribeServiceWorker();
+
         var howLaunched = window.location.search.substring(1).split('=')[0];
         if (howLaunched === 'homescreen' || (window.navigator.standalone == true) || (window.matchMedia('(display-mode: standalone)').matches)) {
             welcome.classList.remove('-active');
@@ -55,10 +46,6 @@
 
             listItemArray[listItemArray.length - 1].insertAdjacentHTML('beforebegin', html);
 
-            if (!updates.classList.contains('-active')) {
-                updates.classList.add('-active');
-            }
-
             navigator.serviceWorker.ready.then(function(registration) {
                 registration.showNotification(resp.title, {
                     body: resp.description,
@@ -71,19 +58,6 @@
 
         socket.on('mainCard', (resp) => {
             navigator.serviceWorker.register('./service-worker.js',{ scope: './' });
-            timeLeft.innerHTML = resp.timeLeft;
-            dateTime.innerHTML = resp.dateTime;
-            intro.innerHTML = resp.intro;
-            paragraph.innerHTML = resp.paragraph;
-            buttonText.innerHTML = resp.buttonText;
-        });
-
-        socket.on('completedSteps', (resp) => {
-            navigator.serviceWorker.register('./service-worker.js',{ scope: './' });
-            completed.classList.add('-active');
-            welcome.classList.remove('-active');
-            toroTimeline.classList.remove('-active');
-            footer.classList.remove('-active');
         });
     }
 
@@ -131,26 +105,6 @@
                     });
                 });
         }
-
-        self.addEventListener('notificationclick', function(event) {
-            console.log('On notification click: ', event.notification.tag);
-            event.notification.close();
-            event.waitUntil(
-                clients.matchAll({
-                    type: "window"
-                })
-                    .then(function(clientList) {
-                        for (let i = 0; i < clientList.length; i++) {
-                            let client = clientList[i];
-                            if (client.url == '/' && 'focus' in client)
-                                return client.focus();
-                        }
-                        if (clients.openWindow) {
-                            return clients.openWindow('https://deanhume.github.io/typography');
-                        }
-                    })
-            );
-        });
     }
 })();
 
