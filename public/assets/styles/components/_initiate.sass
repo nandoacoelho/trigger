@@ -1,0 +1,56 @@
+.iniciate
+  top: 0
+  left: 0
+  height: 100%
+  width: 100%
+  position: fixed
+  display: flex
+  justify-content: center
+  flex-direction: column
+  align-items: center
+  background: $gradient1
+  z-index: 15
+  padding: 30px
+
+  > .title
+    text-transform: capitalize
+
+  > .message
+    font-family: $roboto
+    font-weight: 300
+    color: white
+    text-align: center
+    text-rendering: optimizeLegibility !important
+    -webkit-font-smoothing: antialiased !important
+
+  .identify
+    font-family: $roboto
+    font-weight: 700
+    padding: 0 5px
+
+  .options
+    width: 70%
+    height: 90px
+    margin-top: 50px
+    display: flex
+    align-items: center
+    justify-content: space-between
+
+    .option
+      height: 120px
+      width: 90px
+      display: flex
+      align-items: center
+      justify-content: space-between
+      flex-direction: column
+
+      .option-label
+        font-family: $rubik
+        font-weight: 400
+
+    .anonymous-option,
+    .identify-option
+      width: 90px
+      height: 90px
+      border-radius: 50%
+      border: 1px solid white
