@@ -28,7 +28,7 @@
      */
     function connectToSocketIO() {
         let socket;
-            socket = io.connect('https://huge-trigger.herokuapp.com:19713', {
+            socket = io.connect('https://huge-trigger.herokuapp.com:49223', {
                 'path': '/socket.io'
             });
 
