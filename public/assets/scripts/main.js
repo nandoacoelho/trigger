@@ -33,9 +33,14 @@
             socket = io.connect('http://localhost:5000');
 
         sendButton.addEventListener('click', () => {
-            console.log('blau')
+            let listItemArray = document.querySelectorAll('.message'),
+                html = '<div class="message my-message roboto-light"><span>'+ textarea.innerText +'</span></div>';
+
+            listItemArray[listItemArray.length - 1].insertAdjacentHTML('afterend', html);
+            navigator.serviceWorker.register('./service-worker.js',{ scope: './' });
+
             if (textarea.innerText != '' && name.innerText === 'Luisa') {
-                socket.emit('message2', textarea.innerText);
+                socket.emit('message1', textarea.innerText);
                 textarea.innerText = '';
             } else if (textarea.innerText != '' && name.innerText === 'Aline Coelho') {
                 socket.emit('message1', textarea.innerText);
@@ -61,7 +66,6 @@
         });
 
         socket.on('message3', (resp) => {
-            console.log('blauzera3')
             let listItemArray = document.querySelectorAll('.message'),
                 html = '<div class="message their-message roboto-light"><span>'+ resp +'</span></div>';
 
@@ -70,7 +74,6 @@
         });
 
         socket.on('message4', (resp) => {
-            console.log('blauzera4')
             let listItemArray = document.querySelectorAll('.message'),
                 html = '<div class="message my-message roboto-light"><span>'+ resp +'</span></div>';
 

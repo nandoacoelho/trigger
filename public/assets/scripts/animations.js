@@ -64,6 +64,7 @@
     });
 
     header.classList.remove('-scroll-up');
+
     $('.textarea').on('focusin',function(){
         microphone.classList.remove('-active');
         paperPlane.classList.add('-active');
