@@ -15,136 +15,14 @@ html
         link(rel="stylesheet" type="text/css" href="./assets/styles/main.css")
 
     body
-        header.header
-            .overlay.-active
 
-            .black-overlay
-
-            a.user-icon.-home.active(href="#")
-                img.user.-active(src="./assets/images/user.svg")
-
-            p.name.rubik-medium.-active Aline Coelho
-                img.arrow(src="./assets/images/arrow.svg")
-
-            a.user-icon.-active.user(href="#")
-                img.user.-active(src="./assets/images/user.svg")
-
-        .profile-info
-            a.user-icon.-active.back(href="#")
-                img.back.-active(src="./assets/images/back.png")
-
-            p.profile-name.rubik-medium Luisa
-
-            p.info.roboto-light Unknown information
-
-        main.main
-            .profile
-                p.without-information Luisa hasn't add informations yet. Wait for her to feel comfortable for share these informations with you.
-
-        .messages
-            .their-message.roboto-light
-                span Lorem ipsum dolor sit.
-            .my-message.roboto-light.-more-letters
-                span Lorem ipsum dolor sit amet, elit. sed.
-            .their-message.roboto-light
-                span Lorem ipsum dolor sit.
-            .their-message.roboto-light.-more-letters
-                span Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed.
-            .my-message.roboto-light.-more-letters
-                span Lorem ipsum dolor sit amet, elit. sed.
-            .my-message.roboto-light
-                span Lorem ipsum dolor sit.
-            .their-message.roboto-light
-                span Lorem ipsum dolor sit.
-            .my-message.roboto-light.-more-letters
-                span Lorem ipsum dolor sit amet, elit. sed.
-            .their-message.roboto-light
-                span Lorem ipsum dolor sit.
-            .their-message.roboto-light.-more-letters
-                span Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed.
-            .my-message.roboto-light.-more-letters
-                span Lorem ipsum dolor sit amet, elit. sed.
-            .my-message.roboto-light
-                span Lorem ipsum dolor sit.
-            .their-message.roboto-light
-                span Lorem ipsum dolor sit.
-            .my-message.roboto-light.-more-letters
-                span Lorem ipsum dolor sit amet, elit. sed.
-            .their-message.roboto-light
-                span Lorem ipsum dolor sit.
-            .their-message.roboto-light.-more-letters
-                span Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed.
-            .my-message.roboto-light.-more-letters
-                span Lorem ipsum dolor sit amet, elit. sed.
-            .my-message.roboto-light
-                span Lorem ipsum dolor sit.
-            .their-message.roboto-light
-                span Lorem ipsum dolor sit.
-            .my-message.roboto-light.-more-letters
-                span Lorem ipsum dolor sit amet, elit. sed.
-            .their-message.roboto-light
-                span Lorem ipsum dolor sit.
-            .their-message.roboto-light.-more-letters
-                span Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed.
-            .my-message.roboto-light.-more-letters
-                span Lorem ipsum dolor sit amet, elit. sed.
-            .my-message.roboto-light
-                span Lorem ipsum dolor sit.
-            .their-message.roboto-light
-                span Lorem ipsum dolor sit.
-            .my-message.roboto-light.-more-letters
-                span Lorem ipsum dolor sit amet, elit. sed.
-            .their-message.roboto-light
-                span Lorem ipsum dolor sit.
-            .their-message.roboto-light.-more-letters
-                span Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed.
-            .my-message.roboto-light.-more-letters
-                span Lorem ipsum dolor sit amet, elit. sed.
-            .my-message.roboto-light
-                span Lorem ipsum dolor sit.
-            .their-message.roboto-light
-                span Lorem ipsum dolor sit.
-            .my-message.roboto-light.-more-letters
-                span Lorem ipsum dolor sit amet, elit. sed.
-            .their-message.roboto-light
-                span Lorem ipsum dolor sit.
-            .their-message.roboto-light.-more-letters
-                span Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed.
-            .my-message.roboto-light.-more-letters
-                span Lorem ipsum dolor sit amet, elit. sed.
-            .my-message.roboto-light
-                span Lorem ipsum dolor sit.
-            .their-message.roboto-light
-                span Lorem ipsum dolor sit.
-            .my-message.roboto-light.-more-letters
-                span Lorem ipsum dolor sit amet, elit. sed.
-            .their-message.roboto-light
-                span Lorem ipsum dolor sit.
-            .their-message.roboto-light.-more-letters
-                span Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed.
-            .my-message.roboto-light.-more-letters
-                span Lorem ipsum dolor sit amet, elit. sed.
-            .my-message.roboto-light
-                span Lorem ipsum dolor sit.
-            .their-message.roboto-light
-                span Lorem ipsum dolor sit.
-            .my-message.roboto-light.-more-letters
-                span Lorem ipsum dolor sit amet, elit. sed.
-            .their-message.roboto-light
-                span Lorem ipsum dolor sit.
-            .their-message.roboto-light.-more-letters
-                span Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed.
-            .my-message.roboto-light.-more-letters
-                span Lorem ipsum dolor sit amet, elit. sed.
-            .my-message.roboto-light
-                span Lorem ipsum dolor sit.
-
-        footer.footer-textarea
-            .type-text
-                span.textarea(contenteditable="true" data-ph="Your text here...")
-            button.voice-button
-                img.microphone.-active(src="./assets/images/microphone.svg")
-                img.paper-plane(src="./assets/images/paper-plane.svg")
+        include ./templates/_header
+        +headerAnonymous
+        include ./templates/_profile-info
+        +profileInfoAnonymous
+        include ./templates/_profile
+        include ./templates/_messages
+        include ./templates/_footer
 
         script(src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous")
         script(src="https://cdn.socket.io/socket.io-1.4.5.js")
