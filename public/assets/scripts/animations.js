@@ -1,50 +1,40 @@
 (function () {
     'use strict';
     
-    var name = document.querySelector('.name'),
+    let body = document.querySelector('body'),
+
         header = document.querySelector('.header'),
+        name = document.querySelector('.name'),
         arrow = document.querySelector('.arrow'),
+        userIcon = document.querySelector('.user-icon'),
+        overlay = document.querySelector('.overlay'),
+        blackOverlay = document.querySelector('.black-overlay'),
+        user = document.querySelector('.user'),
+        back = document.querySelector('.back'),
+
+
         main = document.querySelector('.main'),
+        profile = document.querySelector('.profile'),
+
         lastScrollTop = 0;
 
     name.addEventListener('click', () => {
-       header.classList.toggle('-active');
+        blackOverlay.classList.toggle('-active');
+        overlay.classList.toggle('-active');
+
+        header.classList.toggle('-active');
+        profile.classList.toggle('-active');
+        body.classList.toggle('-no-overflow');
+        name.classList.toggle('-active');
+        user.classList.toggle('-active');
+        back.classList.toggle('-active');
     });
 
-    // document.addEventListener('scroll', function(event) {
-    //     let scrollPosition = window.pageYOffset;
-    //     var $elm = $(event.target);
-    //
-    //     if( $elm.is('.main')){ // or any other filtering condition
-    //         // do some stuff
-    //         if (scrollPosition > lastScrollTop) {
-    //             header.classList.add('-scroll-up');
-    //             console.log('scrolling2');
-    //         } else {
-    //             header.classList.remove('-scroll-up');
-    //             console.log('scrolling');
-    //         }
-    //         lastScrollTop = scrollPosition;
-    //     }
-    // }.bind(this));
-    //
-    // $(".main").scroll(function() { //.box is the class of the div
-    //     var scrollPosition = main.scrollTop;
-    //     console.log(scrollPosition )
-    //     if (scrollPosition > lastScrollTop) {
-    //         header.classList.add('-scroll-up');
-    //         console.log('scrolling2');
-    //     } else {
-    //         header.classList.remove('-scroll-up');
-    //         console.log('scrolling');
-    //     }
-    //     lastScrollTop = scrollPosition;
-    //
-    //
-    // }.bind(this));
+    userIcon.addEventListener('click', function() {
+        header.classList.toggle('-active');
+    });
 
-
-    $('.main').on('scroll', function () {
+    $('.messages').on('scroll', function () {
         let scrollPosition = main.scrollTop;
         if (scrollPosition > lastScrollTop) {
             header.classList.add('-scroll-up');
@@ -54,5 +44,4 @@
         lastScrollTop = scrollPosition;
 
     }.bind(this));
-    //
 })();

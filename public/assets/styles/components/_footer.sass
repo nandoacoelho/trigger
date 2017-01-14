@@ -46,3 +46,10 @@
 
     .microphone
       width: 14px
+
+[contentEditable=true]:empty:not(:focus)::before
+  content: attr(data-ph)
+  color: $grey
+  font-family: $roboto
+  font-weight: 300
+  font-size: 12px
