@@ -26,7 +26,7 @@
      */
     function connectToSocketIO() {
         let socket;
-            socket = io.connect('https://proto.riotechlabs.com:4000', {
+            socket = io.connect('https://huge-trigger.herokuapp.com:3000', {
                 'path': '/socket.io',
                 secure: true
             });
