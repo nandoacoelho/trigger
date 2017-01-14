@@ -11,14 +11,8 @@
 
         var fs = require( 'fs' );
         var app = require('express')();
-        var https        = require('https');
-        var server = https.createServer({
-            key: fs.readFileSync('/etc/ssl/__riotechlabs_com.key'),
-            cert: fs.readFileSync('/etc/ssl/cert_chain.crt'),
-            ca: fs.readFileSync('/etc/ssl/cert_chain.crt'),
-            requestCert: false,
-            rejectUnauthorized: false
-        },app);
+        var https        = require('http');
+        var server = https.createServer(app);
         server.listen(4000);
 
         var io = require('socket.io').listen(server);
