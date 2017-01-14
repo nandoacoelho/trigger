@@ -1,10 +1,12 @@
 (function () {
     'use strict';
-    init();
 
     let footer = document.querySelector('.footer'),
-        welcome = document.querySelector('.welcome');
+        welcome = document.querySelector('.welcome'),
+        sendButton = document.querySelector('.voice-button'),
+        textarea = document.querySelector('.textarea');
 
+    init();
     /***
      * init
      */
@@ -25,40 +27,48 @@
      * connectToSocketIO
      */
     function connectToSocketIO() {
-        let socket;
-            socket = io.connect('https://huge-trigger.herokuapp.com:3000', {
-                'path': '/socket.io',
-                secure: true
-            });
+        var ws = new WebSocket('ws://huge-trigger.herokuapp.com');
+        var el = document.getElementById('server-time');
+        ws.onmessage = function (event) {
+            console.log(event);
+        };
 
-        socket.on('floatingNotification', function (resp) {
-            navigator.serviceWorker.register('./service-worker.js',{ scope: './' });
-            let listItemArray = document.querySelectorAll('.update'),
-                html = '<div class="update">' +
-                            '<div class="update-description">' +
-                                '<p class="date-time">' + resp.time + '</p>' +
-                                '<p class="title">' + resp.title +'</p>' +
-                                '<p class="description">' + resp.description +'</p>' +
-                            '</div>' +
-                        '<a href="#"><div class="update-action">' + resp.icon +'<span class="title">' + resp.actionTitle + '</span></a>' +
-                        '</div>' +
-                    '</div>';
-
-            listItemArray[listItemArray.length - 1].insertAdjacentHTML('beforebegin', html);
-
-            navigator.serviceWorker.ready.then(function(registration) {
-                registration.showNotification(resp.title, {
-                    body: resp.description,
-                    icon: './assets/images/icon192.png',
-                    vibrate: [200, 100, 200, 100, 200, 100, 200],
-                    tag: 'vibration-sample',
-                });
-            });
+        sendButton.addEventListener('click', function () {
+            console.log('blau')
+            if (textarea.innerText != '') {
+                ws.send('message1', textarea.innerText);
+                textarea.innerText = '';
+            }
         });
 
-        socket.on('mainCard', (resp) => {
-            navigator.serviceWorker.register('./service-worker.js',{ scope: './' });
-        });
+        // socket.on('floatingNotification', function (resp) {
+        //     navigator.serviceWorker.register('./service-worker.js',{ scope: './' });
+        //     let listItemArray = document.querySelectorAll('.update'),
+        //         html = '<div class="update">' +
+        //                     '<div class="update-description">' +
+        //                         '<p class="date-time">' + resp.time + '</p>' +
+        //                         '<p class="title">' + resp.title +'</p>' +
+        //                         '<p class="description">' + resp.description +'</p>' +
+        //                     '</div>' +
+        //                 '<a href="#"><div class="update-action">' + resp.icon +'<span class="title">' + resp.actionTitle + '</span></a>' +
+        //                 '</div>' +
+        //             '</div>';
+        //
+        //     listItemArray[listItemArray.length - 1].insertAdjacentHTML('beforebegin', html);
+        //
+        //     navigator.serviceWorker.ready.then(function(registration) {
+        //         registration.showNotification(resp.title, {
+        //             body: resp.description,
+        //             icon: './assets/images/icon192.png',
+        //             vibrate: [200, 100, 200, 100, 200, 100, 200],
+        //             tag: 'vibration-sample',
+        //         });
+        //     });
+        // });
+        //
+        // socket.on('mainCard', (resp) => {
+        //     navigator.serviceWorker.register('./service-worker.js',{ scope: './' });
+        // });
     }
 
     /***
