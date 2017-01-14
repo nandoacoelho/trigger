@@ -24,28 +24,13 @@
         }
     }
 
-    var os = require('os');
-
-    var interfaces = os.networkInterfaces();
-    var addresses = [];
-    for (var k in interfaces) {
-        for (var k2 in interfaces[k]) {
-            var address = interfaces[k][k2];
-            if (address.family === 'IPv4' && !address.internal) {
-                addresses.push(address.address);
-            }
-        }
-    }
-
-    console.log(addresses);
-
     /***
      * connectToSocketIO
      */
     function connectToSocketIO() {
         let socket;
             // https://huge-trigger.herokuapp.com:49223
-            socket = io.connect('http://localhost:5000');
+            socket = io.connect('http://10.12.32.154:5000');
 
         sendButton.addEventListener('click', () => {
             let listItemArray = document.querySelectorAll('.message'),
