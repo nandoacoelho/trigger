@@ -1,0 +1,31 @@
+.user-icon
+  width: 24px
+  position: absolute
+  top: 65px
+  left: 6%
+  z-index: 3
+  opacity: 0
+  visibility: hidden
+  height: 0
+  transition: opacity .3s, visibility .3s
+
+  &.-active
+    opacity: 1
+    visibility: visible
+    height: 24px
+
+  img
+    position: absolute
+    width: 24px
+    height: 24px
+
+  .user,
+  .back
+    opacity: 0
+    visibility: hidden
+    height: 0
+
+    &.-active
+      opacity: 1
+      visibility: visible
+      height: 24px

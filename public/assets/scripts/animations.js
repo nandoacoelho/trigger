@@ -10,28 +10,39 @@
         overlay = document.querySelector('.overlay'),
         blackOverlay = document.querySelector('.black-overlay'),
         user = document.querySelector('.user'),
-        back = document.querySelector('.back'),
+        back = document.querySelector('.user-icon.back'),
 
 
         main = document.querySelector('.main'),
         profile = document.querySelector('.profile'),
+        profileInfo = document.querySelector('.profile-info'),
 
         lastScrollTop = 0;
 
     name.addEventListener('click', () => {
         blackOverlay.classList.toggle('-active');
         overlay.classList.toggle('-active');
-
+        console.log('blau')
         header.classList.toggle('-active');
         profile.classList.toggle('-active');
         body.classList.toggle('-no-overflow');
         name.classList.toggle('-active');
         user.classList.toggle('-active');
-        back.classList.toggle('-active');
+
+        profileInfo.classList.toggle('-active');
     });
 
-    userIcon.addEventListener('click', function() {
+    back.addEventListener('click', () => {
+        blackOverlay.classList.toggle('-active');
+        overlay.classList.toggle('-active');
+        console.log('blau')
         header.classList.toggle('-active');
+        profile.classList.toggle('-active');
+        body.classList.toggle('-no-overflow');
+        name.classList.toggle('-active');
+        user.classList.toggle('-active');
+
+        profileInfo.classList.toggle('-active');
     });
 
     $('.messages').on('scroll', function () {
@@ -42,6 +53,9 @@
             header.classList.remove('-scroll-up');
         }
         lastScrollTop = scrollPosition;
-
     }.bind(this));
+
+    // var d = $('.messages');
+    // d.scrollTop(d.prop("scrollHeight"));
+    $(".messages").animate({ scrollTop: $('.messages').prop("scrollHeight")}, 1000);
 })();

@@ -10,26 +10,51 @@ html
 
         meta(name="mobile-web-app-capable" content="yes")
         link(rel="manifest" href="manifest.json")
-        link(href="https://fonts.googleapis.com/css?family=Roboto:300|Rubik" rel="stylesheet")
+        link(href="https://fonts.googleapis.com/css?family=Roboto:300,700|Rubik" rel="stylesheet")
+
         link(rel="stylesheet" type="text/css" href="./assets/styles/main.css")
 
     body
         header.header
             img.user-photo(src="./assets/images/user-photo.png")
             .overlay.-active
+
             .black-overlay
+
             a.user-icon.-active(href="#")
                 img.user.-active(src="./assets/images/user.svg")
-                img.back(src="./assets/images/back.svg")
+
             a.back
+
             p.name.rubik-medium.-active Aline Coelho
                 img.arrow(src="./assets/images/arrow.svg")
+
         .profile-info
-            p.profile-name Aline Coelho
-            p.info Female - 40 years
+            a.user-icon.-active.back(href="#")
+                img.back.-active(src="./assets/images/back.png")
+
+            p.profile-name.rubik-medium Aline Coelho
+
+            p.info.roboto-light Female - 40 years
 
         main.main
             .profile
+                .profile-section
+                    h3.title speaks
+                    .tags
+
+                .profile-section
+                    h3.title family
+                    .tags
+
+                .profile-section
+                    h3.title location
+                    .tags
+
+                .profile-section
+                    h3.title location
+                    .tags
+
             .messages
                 .their-message.roboto-light
                     span Lorem ipsum dolor sit.
