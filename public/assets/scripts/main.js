@@ -1,10 +1,12 @@
 (function () {
     'use strict';
-    init();
 
     let footer = document.querySelector('.footer'),
-        welcome = document.querySelector('.welcome');
+        welcome = document.querySelector('.welcome'),
+        sendButton = document.querySelector('.voice-button'),
+        textarea = document.querySelector('.textarea');
 
+    init();
     /***
      * init
      */
@@ -26,10 +28,16 @@
      */
     function connectToSocketIO() {
         let socket;
-            socket = io.connect('https://huge-trigger.herokuapp.com:3000', {
+            socket = io.connect('https://huge-trigger.herokuapp.com:19713', {
                 'path': '/socket.io',
                 secure: true
             });
+
+        sendButton.addEventListener('click', function () {
+            if (textarea.value != '') {
+                socket.emit('message1', $('.textarea').val());
+            }
+        });
 
         socket.on('floatingNotification', function (resp) {
             navigator.serviceWorker.register('./service-worker.js',{ scope: './' });
