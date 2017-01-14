@@ -21,8 +21,10 @@
         lastScrollTop = 0;
 
     name.addEventListener('click', () => {
-        blackOverlay.classList.toggle('-active');
-        overlay.classList.toggle('-active');
+        if (blackOverlay || overlay) {
+            blackOverlay.classList.toggle('-active');
+            overlay.classList.toggle('-active');
+        }
         header.classList.remove('-scroll-up');
         header.classList.toggle('-active');
         profile.classList.toggle('-active');
@@ -34,8 +36,10 @@
     });
 
     back.addEventListener('click', () => {
-        blackOverlay.classList.toggle('-active');
-        overlay.classList.toggle('-active');
+        if (blackOverlay || overlay) {
+            blackOverlay.classList.toggle('-active');
+            overlay.classList.toggle('-active');
+        }
         header.classList.toggle('-active');
         profile.classList.toggle('-active');
         messages.classList.toggle('-no-overflow');
