@@ -1,11 +1,17 @@
+.header.-scroll-up + .main
+  margin-top: 10%
+
 .main
-  height: 65%
+  height: 85%
   width: 100%
-  padding: 20px
+  margin-top: 36%
+  padding: 0 20px 20px
   background: $light-grey
+  overflow-y: scroll
+  transition: .3s ease
+  -webkit-overflow-scrolling: touch
 
   > .my-message
-    font-family: $roboto
     text-align: left
 
     &.-more-letters
@@ -19,9 +25,10 @@
       padding: 10px 20px
       border-radius: 37px 37px 37px 0
       background-color: $ice-white
+      font-family: $roboto
+      font-weight: 300
 
   > .their-message
-    font-family: $roboto
     text-align: left
 
     &.-more-letters
@@ -35,6 +42,8 @@
       padding: 10px 20px
       border-radius: 37px 37px 0 37px
       color: white
+      font-family: $roboto
+      font-weight: 300
       background: $gradient1
 
   > .my-message,

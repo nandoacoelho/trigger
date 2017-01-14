@@ -1,23 +1,33 @@
 .header
   display: flex
+  position: fixed
   flex-direction: row
   justify-content: center
   align-items: center
   height: 20%
   max-height: 30%
   width: 100%
-  position: relative
+  top: 0
   overflow: hidden
   transition: .3s ease-in
 
   &.-active
     height: 30%
 
+  &.-scroll-up
+    height: 10%
+
   > .user-photo
     width: 100%
     position: absolute
     left: 0
     z-index: 0
+
+  > .user-icon
+    width: 24px
+    position: absolute
+    left: 6%
+    z-index: 2
 
   > .overlay
     background-color: $header-overlay
