@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node chatbot-server.js && node notification-server.js"
+    "start": "node notification-server.js"
   },
   "repository": {
     "type": "git",
