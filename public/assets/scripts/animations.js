@@ -63,9 +63,7 @@
         lastScrollTop = scrollPosition;
     });
 
-    $(".messages").animate({ scrollTop: $('.messages').prop("scrollHeight")},0);
     header.classList.remove('-scroll-up');
-
     $('.textarea').on('focusin',function(){
         microphone.classList.remove('-active');
         paperPlane.classList.add('-active');
@@ -74,5 +72,6 @@
     $('.textarea').on('focusout',function(){
         microphone.classList.add('-active');
         paperPlane.classList.remove('-active');
+        $(".messages").animate({ scrollTop: $('.messages').prop("scrollHeight") + 100},0);
     });
 })();

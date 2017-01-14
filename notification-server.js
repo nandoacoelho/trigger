@@ -9,32 +9,43 @@
     function notification() {
         'use strict';
 
-        const express = require('express');
-        const SocketServer = require('ws').Server;
-        const path = require('path');
-
+        var fs = require( 'fs' );
+        var app = require('express')();
+        var https        = require('http');
+        var server = https.createServer(app);
         const PORT = process.env.PORT || 5000;
-        const INDEX = path.join(__dirname, 'index.html');
+        console.log(PORT);
+        server.listen(PORT);
 
-        const server = express()
-            .use((req, res) => res.sendFile(INDEX) )
-            .listen(PORT, () => console.log(`Listening on ${ PORT }`));
+        var io = require('socket.io').listen(server);
 
-        const wss = new SocketServer({ server });
+        io.sockets.on('connection', (socket)  => {
+            console.log('user connected');
 
-        wss.on('connection', (ws) => {
-            console.log('Client connected');
-            ws.on('close', () => console.log('Client disconnected'));
-            ws.on('message1', () => {
-                wss.clients.forEach((client) => {
-                    client.send(new Date().toTimeString());
-                });
+            socket.on('problem', function(data){
+                socket.broadcast.emit('mainCard', mainCard);
             });
 
-            ws.on('message2', () => {
-                wss.clients.forEach((client) => {
-                    client.send(new Date().toTimeString());
-                });
+            socket.on('notification1', function(data){
+                socket.broadcast.emit('floatingNotification', notificationArray[0]);
+            });
+
+            socket.on('notification2', function(data){
+                socket.broadcast.emit('floatingNotification', notificationArray[1]);
+            });
+
+            socket.on('completed', function(data){
+                socket.broadcast.emit('completedSteps', {});
+            });
+
+            socket.on('message1', (data) => {
+                console.log('message1');
+                socket.broadcast.emit('message3', data);
+            });
+
+            socket.on('message2', (data) => {
+                console.log('message2');
+                socket.broadcast.emit('message4', data);
             });
         });
     }

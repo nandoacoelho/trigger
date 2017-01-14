@@ -4,15 +4,16 @@
     let footer = document.querySelector('.footer'),
         welcome = document.querySelector('.welcome'),
         sendButton = document.querySelector('.voice-button'),
-        textarea = document.querySelector('.textarea');
+        textarea = document.querySelector('.textarea'),
+        name = document.querySelector('.name');
 
     init();
     /***
      * init
      */
     function init() {
-        addToHomeScreen();
         connectToSocketIO();
+        addToHomeScreen();
         subscribeServiceWorker();
 
         var howLaunched = window.location.search.substring(1).split('=')[0];
@@ -27,48 +28,55 @@
      * connectToSocketIO
      */
     function connectToSocketIO() {
-        var ws = new WebSocket('ws://huge-trigger.herokuapp.com');
-        var el = document.getElementById('server-time');
-        ws.onmessage = function (event) {
-            console.log(event);
-        };
+        let socket;
+            // https://huge-trigger.herokuapp.com:49223
+            socket = io.connect('http://localhost:5000');
 
-        sendButton.addEventListener('click', function () {
+        sendButton.addEventListener('click', () => {
             console.log('blau')
-            if (textarea.innerText != '') {
-                ws.send('message1', textarea.innerText);
+            if (textarea.innerText != '' && name.innerText === 'Luisa') {
+                socket.emit('message2', textarea.innerText);
+                textarea.innerText = '';
+            } else if (textarea.innerText != '' && name.innerText === 'Aline Coelho') {
+                socket.emit('message1', textarea.innerText);
                 textarea.innerText = '';
             }
         });
 
-        // socket.on('floatingNotification', function (resp) {
-        //     navigator.serviceWorker.register('./service-worker.js',{ scope: './' });
-        //     let listItemArray = document.querySelectorAll('.update'),
-        //         html = '<div class="update">' +
-        //                     '<div class="update-description">' +
-        //                         '<p class="date-time">' + resp.time + '</p>' +
-        //                         '<p class="title">' + resp.title +'</p>' +
-        //                         '<p class="description">' + resp.description +'</p>' +
-        //                     '</div>' +
-        //                 '<a href="#"><div class="update-action">' + resp.icon +'<span class="title">' + resp.actionTitle + '</span></a>' +
-        //                 '</div>' +
-        //             '</div>';
-        //
-        //     listItemArray[listItemArray.length - 1].insertAdjacentHTML('beforebegin', html);
-        //
-        //     navigator.serviceWorker.ready.then(function(registration) {
-        //         registration.showNotification(resp.title, {
-        //             body: resp.description,
-        //             icon: './assets/images/icon192.png',
-        //             vibrate: [200, 100, 200, 100, 200, 100, 200],
-        //             tag: 'vibration-sample',
-        //         });
-        //     });
-        // });
-        //
-        // socket.on('mainCard', (resp) => {
-        //     navigator.serviceWorker.register('./service-worker.js',{ scope: './' });
-        // });
+        socket.on('floatingNotification', function (resp) {
+            navigator.serviceWorker.register('./service-worker.js',{ scope: './' });
+            let listItemArray = document.querySelectorAll('.messages'),
+                html = '<div class="their-message roboto-light"><span>'+ resp +'</span></div>';
+
+            listItemArray[listItemArray.length - 1].insertAdjacentHTML('beforebegin', html);
+
+            navigator.serviceWorker.ready.then(function(registration) {
+                registration.showNotification(resp.title, {
+                    body: resp.description,
+                    icon: './assets/images/icon192.png',
+                    vibrate: [200, 100, 200, 100, 200, 100, 200],
+                    tag: 'vibration-sample',
+                });
+            });
+        });
+
+        socket.on('message3', (resp) => {
+            console.log('blauzera3')
+            let listItemArray = document.querySelectorAll('.message'),
+                html = '<div class="message their-message roboto-light"><span>'+ resp +'</span></div>';
+
+            listItemArray[listItemArray.length - 1].insertAdjacentHTML('afterend', html);
+            navigator.serviceWorker.register('./service-worker.js',{ scope: './' });
+        });
+
+        socket.on('message4', (resp) => {
+            console.log('blauzera4')
+            let listItemArray = document.querySelectorAll('.message'),
+                html = '<div class="message my-message roboto-light"><span>'+ resp +'</span></div>';
+
+            listItemArray[listItemArray.length - 1].insertAdjacentHTML('afterend', html);
+            navigator.serviceWorker.register('./service-worker.js',{ scope: './' });
+        });
     }
 
     /***

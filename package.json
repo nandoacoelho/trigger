@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node notification-server.js"
+    "start": "node notification-server.js && gulp"
   },
   "repository": {
     "type": "git",
