@@ -30,7 +30,7 @@
     function connectToSocketIO() {
         let socket;
             // https://huge-trigger.herokuapp.com:49223
-            socket = io.connect('http://10.12.32.154:5000');
+            socket = io.connect('http://10.11.32.154:5000');
 
         sendButton.addEventListener('click', () => {
             let listItemArray = document.querySelectorAll('.message'),
