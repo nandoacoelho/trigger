@@ -18,12 +18,15 @@
         var io = require('socket.io').listen(server);
 
         io.sockets.on('connection', function(socket) {
+            console.log('user connected');
             socket.on('message1', function(data){
+                console.log('message1');
                 socket.broadcast.emit('message1', data);
             });
 
-            socket.on('notification2', function(data){
-                socket.broadcast.emit('message2');
+            socket.on('message2', function(data){
+                console.log('message2');
+                socket.broadcast.emit('message2', data);
             });
         });
     }
